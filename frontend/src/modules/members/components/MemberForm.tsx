@@ -5,33 +5,36 @@ import * as z from "zod";
 
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { Member } from "../types";
+import { useCreateMembers } from "../hooks";
 
-const schema = z.object({
-  firstName: z.string().min(1, { message: "Required" }),
-  lastName: z.string().min(1, { message: "Required" }),
-  address: z.string().min(1, { message: "Required" }),
-  ssn: z.string().min(1, { message: "Required" }),
+const memberSchema = z.object({
+  firstName: z.string().min(1).trim(),
+  lastName: z.string().min(1).trim(),
+  address: z.string().min(1).trim(),
+  ssn: z
+    .string()
+    .min(1)
+    .trim()
+    .regex(/^\d{3}-\d{2}-\d{4}$/),
 });
 
-interface Inputs {
-  firstName: string;
-  lastName: string;
-  address: string;
-  ssn: string;
-}
-
 export function MemberForm() {
+  const { isLoading, createMember } = useCreateMembers();
   const {
+    reset,
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>({
-    resolver: zodResolver(schema),
+    formState: { isValid },
+  } = useForm<Member>({
+    resolver: zodResolver(memberSchema),
+    mode: "onSubmit",
   });
 
-  function handleOnSumit(data: Inputs) {
-    console.log({ data });
-  }
+  const handleOnSumit = async (data: Member) => {
+    await createMember(data);
+    reset();
+  };
 
   return (
     <div className="col-span-4 bg-slate-100 p-8 rounded">
@@ -43,7 +46,9 @@ export function MemberForm() {
       </p>
       <form onSubmit={handleSubmit(handleOnSumit)}>
         <div className="flex flex-col mb-4">
-          <h3 className="text-slate-500 font-light">First Name</h3>
+          <label htmlFor="firstName" className="text-slate-500 font-light">
+            First Name
+          </label>
           <Input placeholder="John" {...register("firstName")} />
         </div>
         <div className="flex flex-col mb-4">
@@ -59,10 +64,15 @@ export function MemberForm() {
           <Input placeholder="333-22-4444" {...register("ssn")} />
         </div>
         <div className="flex justify-between">
-          <Button variant="ghost" type="reset">
+          <Button variant="ghost" onClick={() => reset()}>
             Reset
           </Button>
-          <Button icon={<PlusIcon className="mr-2 h-4 w-4" />} type="submit">
+          <Button
+            icon={<PlusIcon className="mr-2 h-4 w-4" />}
+            type="submit"
+            disabled={!isValid}
+            loading={isLoading}
+          >
             Save
           </Button>
         </div>
