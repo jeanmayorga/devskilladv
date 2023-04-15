@@ -9,14 +9,14 @@ import { Member } from "../types";
 import { useCreateMembers } from "../hooks";
 
 const memberSchema = z.object({
-  firstName: z.string().min(1).trim(),
-  lastName: z.string().min(1).trim(),
-  address: z.string().min(1).trim(),
+  firstName: z.string().min(1, "Please enter a first name").trim(),
+  lastName: z.string().min(1, "Please enter a lastName").trim(),
+  address: z.string().min(1, "Please enter a address").trim(),
   ssn: z
     .string()
-    .min(1)
+    .min(1, "Please enter a social security number")
     .trim()
-    .regex(/^\d{3}-\d{2}-\d{4}$/),
+    .regex(/^\d{3}-\d{2}-\d{4}$/, "It must be in the format 333-22-4444"),
 });
 
 export function MemberForm() {
@@ -25,10 +25,10 @@ export function MemberForm() {
     reset,
     register,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm<Member>({
     resolver: zodResolver(memberSchema),
-    mode: "onSubmit",
+    mode: "onBlur",
   });
 
   const handleOnSumit = async (data: Member) => {
@@ -50,18 +50,30 @@ export function MemberForm() {
             First Name
           </label>
           <Input placeholder="John" {...register("firstName")} />
+          {errors.firstName && (
+            <p className="text-sm text-slate-500">{errors.firstName.message}</p>
+          )}
         </div>
         <div className="flex flex-col mb-4">
           <h3 className="text-slate-500 font-light">Last Name</h3>
           <Input placeholder="Doe" {...register("lastName")} />
+          {errors.lastName && (
+            <p className="text-sm text-slate-500">{errors.lastName.message}</p>
+          )}
         </div>
         <div className="flex flex-col mb-4">
           <h3 className="text-slate-500 font-light">Address</h3>
           <Input placeholder="123 Main Street" {...register("address")} />
+          {errors.address && (
+            <p className="text-sm text-slate-500">{errors.address.message}</p>
+          )}
         </div>
         <div className="flex flex-col mb-4">
-          <h3 className="text-slate-500 font-light">SSN</h3>
+          <h3 className="text-slate-500 font-light">Social Security Number</h3>
           <Input placeholder="333-22-4444" {...register("ssn")} />
+          {errors.ssn && (
+            <p className="text-sm text-slate-500">{errors.ssn.message}</p>
+          )}
         </div>
         <div className="flex justify-between">
           <Button variant="ghost" onClick={() => reset()}>
