@@ -19,20 +19,28 @@ This project is built using the following technologies and dependencies:
 - @radix-ui/react-dialog - a primitive for building accessible, responsive, and flexible dialogs in React.
 - react-hot-toast - a simple and lightweight toast library for React.
 
-## Scripts
-
-### Clone the Repo
+## Clone the Repo
 
 ```bash
 git clone git@github.com:jeanmayorga/devskilladv.git
 ```
 
 ```bash
-cd devskilladv
+cd devskilladv/frontend
 ```
 
+## Scripts
+
+Install all the dependecies
+
 ```bash
-yarn // this command will install all the dependencies
+yarn
+```
+
+Run the frontend project in http://localhost:5173/
+
+```bash
+yarn dev
 ```
 
 # Entrevista laboral
