@@ -3,7 +3,7 @@
 This is a quick typescript app with a form to create members and a list to show all the members created.
 Authentication | Member list app
 :-------------------------:|:-------------------------:
-![](https://github.com/jeanmayorga/devskills/blob/main/auth.png) | ![](https://github.com/jeanmayorga/devskills/blob/main/dash.png)
+![](https://raw.githubusercontent.com/jeanmayorga/devskilladv/main/auth.png) | ![](https://raw.githubusercontent.com/jeanmayorga/devskilladv/main/dash.png)
 
 ## Tech stack
 
