@@ -1,0 +1,15 @@
+{
+  "auth": {
+    "iat": 1681593999,
+    "exp": 1681594899,
+    "token": "fake.token"
+  },
+  "members": [
+    {
+      "firstName": "Cosme",
+      "lastName": "Fulanito",
+      "address": "742 Evergreen Terrance",
+      "ssn": "333-22-4444"
+    }
+  ]
+}
