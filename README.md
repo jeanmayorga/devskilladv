@@ -29,10 +29,28 @@ git clone git@github.com:jeanmayorga/devskilladv.git
 ```
 
 ```bash
-cd devskilladv/frontend
+cd devskilladv
 ```
 
-## Scripts
+## Scripts backend (root directory)
+
+Install all the dependecies
+
+```bash
+yarn
+```
+
+Run the server project in http://localhost:8081/
+
+```bash
+yarn serve
+```
+
+## Scripts frontend (frontend folder directory)
+
+```bash
+cd frontend
+```
 
 Install all the dependecies
 
